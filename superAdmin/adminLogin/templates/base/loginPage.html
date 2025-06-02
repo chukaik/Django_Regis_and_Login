@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        
+        .wave-bg {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%238b5cf6' fill-opacity='1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,133.3C672,139,768,181,864,181.3C960,181,1056,139,1152,117.3C1248,96,1344,96,1392,96L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .wave-bg-bottom {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%238b5cf6' fill-opacity='1' d='M0,224L48,208C96,192,192,160,288,160C384,160,480,192,576,186.7C672,181,768,139,864,138.7C960,139,1056,181,1152,202.7C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .login-container {
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.1), 0 8px 10px -6px rgba(139, 92, 246, 0.1);
+           
+        }
+        
+        .input-icon {
+            color: #8b5cf6;
+        }
+        
+        .form-input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+        
+        .form-checkbox:checked {
+            background-color: #8b5cf6;
+            border-color: #8b5cf6;
+        }
+    </style>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#8b5cf6',secondary:'#a78bfa'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <div class="login-container bg-white rounded-lg overflow-hidden w-full max-w-5xl flex shadow-xl">
+        <!-- Left Side - Login Form -->
+        <div class="w-full md:w-1/2 p-8 relative">
+            <div class="absolute top-0 left-0 right-0 h-16 wave-bg"></div>
+            
+            <div class="mt-12 mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Hello Admin</h1>
+                <p class="text-gray-600 mt-2">Sign in to your account</p>
+            </div>
+            
+            <form method="POST" action="{% url 'loginPage' %}">
+                {% csrf_token %}
+
+                {% if messages %}
+                    {%for message in messages %}
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                        <div class="w-5 h-5 flex items-center justify-center text-primary">
+                            <i class="ri-mail-line"></i>
+                        </div>
+                    </div>
+                    <input type="email" name="email" placeholder="E-mail" class="form-input w-full pl-10 pr-3 py-3 rounded-md border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 text-sm">
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                        <div class="w-5 h-5 flex items-center justify-center text-primary">
+                            <i class="ri-lock-line"></i>
+                        </div>
+                    </div>
+                    <input type="password" name="password" placeholder="Password" id="password" class="form-input w-full pl-10 pr-10 py-3 rounded-md border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 text-sm">
+                    <div class="absolute inset-y-0 right-3 flex items-center cursor-pointer" id="togglePassword">
+                        <div class="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-primary">
+                            <i class="ri-eye-line"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember" class="form-checkbox h-4 w-4 text-primary rounded border-gray-300 focus:ring-primary">
+                        <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
+                    </div>
+                    <a href="#" class="text-sm text-primary hover:text-primary-dark">Forgot password?</a>
+                </div> -->
+                
+                <button type="submit" name="login" class="w-full bg-primary text-white py-3 rounded-button font-medium hover:bg-opacity-90 transition duration-200 whitespace-nowrap">SIGN IN</button>
+            </form>
+        </div>
+        
+        <!-- Right Side - Welcome Message -->
+        <div class="hidden md:flex md:w-1/2 bg-gradient-to-br from-purple-500 to-indigo-600 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <h2 class="text-4xl font-bold text-white text-center">Welcome Back!</h2>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 h-24 wave-bg-bottom"></div>
+        </div>
+    </div>
+    
+    <script id="passwordToggle">
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // Toggle icon
+                const icon = togglePassword.querySelector('i');
+                if (type === 'password') {
+                    icon.classList.remove('ri-eye-off-line');
+                    icon.classList.add('ri-eye-line');
+                } else {
+                    icon.classList.remove('ri-eye-line');
+                    icon.classList.add('ri-eye-off-line');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

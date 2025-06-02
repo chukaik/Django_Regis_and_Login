@@ -1,0 +1,38 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.sqlite3
+db.sqlite3
+
+# Static and media files
+/static/
+/media/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.login/
+.login/*
+
+# VSCode and editor settings
+.vscode/
+.idea/
+
+# MacOS
+.DS_Store
+
+# dotenv
+.env
+
+
